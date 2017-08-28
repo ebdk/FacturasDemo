@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+<title>Registrar Cliente</title>
+</head>
+<body>
+
+
+<h2>Ingresar datos:</h2>
+<form action="#" th:action = "@{/clienteregistrado}" th:object="${nuevo}" method="post">
+
+<p><input type="hidden" th:field="*{idPropietario}" /> </p>
+<p>Nombre y Apellido:  <input type="text" th:field="*{apellidoYNombre}" /> </p>
+<p>DNI:  <input type="text" th:field="*{dni}" /> </p>
+<p>Direccion:  <input type="text" th:field="*{direccion}" /> </p>
+<p>Telefono:  <input type="text" th:field="*{telefono}" /> </p>
+<p><input type="submit" value="Confirmar" /> </p>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+<title>Lista de Ordenes</title>
+</head>
+
+<body>
+
+<h1 th:text="${error}"></h1>
+
+<h1>Registar nuevo cliente al sistema:</h1>
+
+<form class="form-horizontal" action="#" th:action = "@{/registrarcliente}" method="post">
+<p><input class="btn btn-primary" type="submit" value="Registrar" /> </p>
+</form>
+
+<h2>Crear orden:</h2>
+
+<form class="form-horizontal" action="#" th:action = "@{/crearorden}" method="post">
+<p>Nombre cliente: <input type="text" name="nombreCliente" /> </p>
+<p>Patente automovil: <input type="text" name="patenteStr" /> </p>
+<p>Marca automovil: <input type="text" name="marcaStr" /> </p>
+<p>Descripcion de la falla: <input type="text" name="fallaStr" /> </p>
+<p><input class="btn btn-primary" type="submit" value="Crear Orden" /> </p>
+</form>
+
+<h2>Todas las ordenes:</h2>
+
+<table class="table table-striped">
+<tr>
+	<th>Nro</th>
+	<th>Cliente</th>
+	<th>Fecha</th>
+	<th>Patente</th>
+	<th>Falla</th>
+	<th>Precio</th>
+	<th>Empleado</th>
+	<th>-</th>
+	<th>-</th>
+	
+</tr>
+<tr th:each="objeto:${todasLasOrdenes}">
+	<td th:text="${objeto.getIdOrden()}"></td>
+	<td th:text="${objeto.getPropietario().getApellidoYNombre()}"></td>
+	<td th:text="${objeto.getFechaIngreso()}"></td>
+	<td th:text="${objeto.getNumPatente()}"></td>
+	<td th:text="${objeto.getFalla()}"></td>
+	<td th:text="${objeto.getPrecioFinal()}"></td>
+	<td th:text="${objeto.getUsuario().getUser()}"></td>
+	<td> <a class="btn btn-danger" th:href="@{/editarorden(id=${objeto.getIdOrden()})}">Editar</a> </td>
+	<td> <a class="btn btn-danger" th:href="@{/imprimirorden(id=${objeto.getIdOrden()})}">Imprimir</a> </td>
+</tr>
+</table>
+
+</body>
+</html>

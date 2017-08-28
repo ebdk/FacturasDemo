@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+<title>Imprimir Orden</title>
+</head>
+<body>
+
+<h3>Orden ID:</h3>
+<p th:text="${orden.getIdOrden()}"></p> 
+<h3>Nombre Cliente:</h3>
+<p th:text="${orden.getPropietario().getApellidoYNombre()}"></p>
+<h3>Fecha:</h3>
+<p th:text="${orden.getFechaIngreso()}"></p> 
+<h3>Patente automovil:</h3>
+<p th:text="${orden.getNumPatente()}"></p>  
+<h3>Marca automovil:</h3>
+<p th:text="${orden.getMarca()}"></p> 
+<h3>Problema a solucionar:</h3>
+<p th:text="${orden.getFalla()}"></p>  
+
+<h3>Repuestos usados:</h3>
+
+<table class="table table-striped">
+<tr>
+	<th>Nombre/Descripcion</th>
+	<th>Precio Individual</th>
+	<th>Cantidad</th>
+	<th>Precio por todos</th>
+	<th>Minutos en instalar</th>
+	<th>Precio por instalar</th>
+	<th>Precio Total</th>
+</tr>
+<tr th:each="objeto:${orden.getItems()}">
+	<td th:text="${objeto.getRepuesto().getDescripcion()}"></td>
+	<td th:text="${objeto.getRepuesto().getCosto()}"></td>
+	<td th:text="${objeto.getCantidad()}"></td>
+	<td th:text="${objeto.precioPorRepuestos()}"></td>
+	<td th:text="${objeto.getTiempoEnInstalar()}"></td>
+	<td th:text="${objeto.precioPorInstalacion()}"></td>
+	<td th:text="${objeto.getPrecioTotal()}"></td>
+</tr>
+</table>
+
+<h2>Precio final:</h2>
+<p th:text="${orden.getPrecioFinal()}"></p>  
+
+</body>
+</html>

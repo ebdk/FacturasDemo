@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+<title>Editar orden</title>
+
+</head>
+<body>
+ 
+<p>Repuestos usados:</p>
+
+<table class="table table-striped">
+<tr>
+	<th>Nombre/Descripcion</th>
+	<th>Precio Individual</th>
+	<th>Cantidad</th>
+	<th>Precio por todos</th>
+	<th>Minutos en instalar</th>
+	<th>Precio por instalar</th>
+	<!-- <th>Precio Total</th>  -->
+</tr>
+<tr th:each="objeto:${orden.getItems()}">
+	<td th:text="${objeto.getRepuesto().getDescripcion()}"></td>
+	<td th:text="${objeto.getRepuesto().getCosto()}"></td>
+	<td th:text="${objeto.getCantidad()}"></td>
+	<td th:text="${objeto.precioPorRepuestos()}"></td>
+	<td th:text="${objeto.getTiempoEnInstalar()}"></td>
+	<td th:text="${objeto.precioPorInstalacion()}"></td>
+	<!-- <td th:text="${objeto.getPrecioTotal())}"></td>  -->
+</tr>
+</table>
+
+<p>Carrito de repuestos:</p>
+
+<table class="table table-striped">
+<tr>
+	<th>Nombre/Descripcion</th>
+	<th>Cantidad</th>
+	<th>Minutos en instalar</th>
+</tr>
+<tr th:each="objeto:${todosLosPasos}">
+	<td th:text="${objeto.getRepuesto().getDescripcion()}"></td>
+	<td th:text="${objeto.getCantidad()}"></td>
+	<td th:text="${objeto.getTiempoEnInstalar()}"></td>
+</tr>
+</table>
+
+<form class="form-horizontal" action="#" th:action = "@{/pasarpasosalaorden}" th:object="${orden}" method="post">
+<p><input type="hidden" th:field="*{idOrden}" /> </p>
+<p><input class="btn btn-primary" type="submit" value="Volcar en Orden" /> </p>
+
+</form>
+<!-- 
+<p>Agregar repuestos:</p>
+
+<form class="form-horizontal" action="#" th:action = "@{/itemagregado}" th:object="${orden}" method="post">
+<p><input type="hidden" th:field="*{idOrden}" /> </p>
+
+<p>Id del repuesto: <input type="text" name="idrep"/> </p>
+<p>Cantidad: <input type="text" name="cantidad"/> </p>
+<p>Minutos trabajados: <input type="text" name="minutos"/> </p>
+<p><input class="btn btn-primary" type="submit" value="Post" /> </p>
+</form>
+ -->
+<p>Repuestos disponibles:</p>
+
+<table class="table table-striped">
+<tr>
+	<th>Nombre</th>
+	<th>Precio</th>
+	<th>Imagen</th>
+	<th>-</th>
+</tr>
+<tr th:each="objeto:${repuestos}">
+	<td th:text="*{objeto.getDescripcion()}"> </td>
+	<td th:text="*{objeto.getCosto()}"> </td>
+	<td><img src="#" th:src="@{ ${objeto.getUrlImg()} }" width="50" height="50" /></td>
+		<td>
+		<form class="form-horizontal" action="#" th:action = "@{/itemagregado}" th:object="${orden}" method="post">
+		<p><input type="hidden" th:field="*{idOrden}" /> </p>
+		<p><input type="hidden" name="idrep" th:value="${objeto.getIdRespuesto()}" /> </p>
+		
+		<p>Cantidad: <input type="text" name="cantidad"/> </p>
+		<p>Minutos trabajados: <input type="text" name="minutos"/> </p>
+		<p><input class="btn btn-primary" type="submit" value="Agregar Producto" /> </p>
+		</form>
+	</td>
+</tr>
+</table>
+
+</body>
+
+</html>
